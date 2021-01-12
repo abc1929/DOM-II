@@ -1,6 +1,7 @@
 // Your code goes here
 
 // mouseover + mouseout
+// hover over "Welcome to Fun bus" enlarges it
 
 const welcome = document.querySelector(".intro h2");
 
@@ -11,6 +12,7 @@ welcome.addEventListener(
 );
 
 // wheel
+// rotates imgs when scrolling on imgs
 
 const imgs = document.querySelectorAll("img");
 let imgsangles = Array.from(imgs, (i) => 0);
@@ -44,6 +46,7 @@ imgs.forEach((i, j) =>
 );
 
 // keydown
+// press esc or enter to reset rotated imgs
 
 function home(e) {
    if (e.code === "Escape" || e.code === "Enter") {
@@ -55,6 +58,7 @@ function home(e) {
 document.addEventListener("keydown", home);
 
 // load
+// flashes imgs after load
 
 imgs.forEach((i) =>
    i.addEventListener("load", (e) => {
@@ -67,12 +71,15 @@ imgs.forEach((i) =>
    })
 );
 
-// contextmenu
+// contextmenu, preventing right clicking on imgs
 
-imgs.forEach((i) => i.addEventListener("contextmenu", (e) => e.target));
+imgs.forEach((i) =>
+   i.addEventListener("contextmenu", (e) => e.preventDefault())
+);
 
 // click and preventDefault()
 // clicking any of the navbar item would toggle foot red color
+// prevent default to stop refreshes
 
 document.querySelectorAll(".nav-link").forEach((i) =>
    i.addEventListener("click", (e) => {
@@ -82,22 +89,26 @@ document.querySelectorAll(".nav-link").forEach((i) =>
 );
 
 // dblclick
+// doubleclicking words in <p> auto copies it.
 
-document
-   .querySelectorAll("p")
-   .forEach((i) =>
-      i.addEventListener("dblclick", (e) =>
-         alert("don't doubleclick! not yet implemented")
-      )
-   );
+document.querySelectorAll("p").forEach((i) =>
+   i.addEventListener("dblclick", (e) => {
+      document.execCommand("copy");
+      alert("you copied the word: " + document.getSelection().toString());
+   })
+);
 
 // select
+// don't have any input areas; this doesn't do anything
 
-document
-   .querySelectorAll("*")
-   .forEach((i) => i.addEventListener("select", (e) => console.log(e.target)));
+document.querySelectorAll("*").forEach((i) =>
+   i.addEventListener("select", (e) => {
+      console.log(e.target);
+   })
+);
 
 // drag / drop / preventDefault()
+// drag a img to sign me up button for action
 
 document.querySelectorAll(".img-content").forEach((i) => {
    i.draggable = true;
@@ -143,12 +154,13 @@ document.addEventListener(
       // console.log(e.target.className);
       if (e.target.className == "btn") {
          // console.log("dropped");
-         alert("No signup right now, sorry");
+         alert("No signup right now due to Covid, sorry");
       }
    },
    false
 );
 
+// testing event propagation
 // click the first sign me up section would alert once
 
 function proptest(e) {
